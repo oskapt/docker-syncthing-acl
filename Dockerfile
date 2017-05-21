@@ -8,8 +8,7 @@ RUN apt-get -qq update \
 
 # get dumb-init
 ENV DI_VERSION 1.2.0
-RUN cd /tmp && \
-    curl -sL -o /bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v${DI_VERSION}/dumb-init_${DI_VERSION}_amd64 && \
+RUN curl -sL -o /bin/dumb-init "https://github.com/Yelp/dumb-init/releases/download/v${DI_VERSION}/dumb-init_${DI_VERSION}_amd64" && \
     chmod +x /bin/dumb-init
 
 # get syncthing
