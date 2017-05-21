@@ -1,7 +1,7 @@
 FROM ubuntu:16.10
 
 RUN apt-get -qq update \
-  && apt-get -qq -y install --no-install-recommends inotify-tools acl git \
+  && apt-get -qq -y install --no-install-recommends inotify-tools acl curl \
   && apt-get -qq autoremove -y \
   && apt-get -qq clean \
   && rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/*
