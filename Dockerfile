@@ -17,7 +17,7 @@ WORKDIR /srv/data
 ADD https://raw.githubusercontent.com/idistech/syncthing-acl/master/syncthing-acl.sh /usr/bin/
 
 ADD ./start.sh /start.sh
-RUN chmod 770 /start.sh
+RUN chmod 770 /start.sh /usr/bin/syncthing-acl.sh
 
 ENTRYPOINT ["dumb-init", "--"]
 CMD ["/start.sh"]
