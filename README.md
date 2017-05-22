@@ -1,21 +1,11 @@
 # docker-syncthing-acl
 
-Run [syncthing](https://syncthing.net) from a docker container. This is targeted for [Rancher](https://www.rancher.com), although it could be used elsewhere. 
+This container will install and run this modified version of [syncthing-acl](https://github.com/oskapt/syncthing-acl) in a Docker container. It is designed to run as a sidekick to [docker-syncthing](https://hub.docker.com/r/monachus/syncthing/) within [Rancher](https://github.com/rancher/rancher).
 
-## Install
-```sh
-docker pull monachus/syncthing
-```
+## Operation
 
-## Usage
+1. Create a Syncthing service. It should mount a config directory and a share directory. The default share is `/srv/data` and the default config location is `/srv/config`.
+2. Add this container as a sidekick, mounting the volumes from the main Syncthing service
+3. After starting the service, share `/srv/data/.acls` between hosts where syncthing-acl is running.
 
-1. Create a service called `syncthing` in your storage stack that pulls this image
-2. Map ports `22000` and `27017/udp` through to the container
-3. Create a `config` sidekick and mount a persistent volume at `/srv/config` for the configuration data.
-4. Add any data volumes you wish to replicate (such as volumes from Rancher NFS) and mount all volumes from `config`
-  * Mount the data volumes beneath `/srv/data`
-5. Grant the container privileged access.
-6. Bind `/dev/fuse` on the host to `/dev/fuse` within the container
-7. (Optional) Set a healthcheck on `22000/tcp`
-8. Set any labels and schedule it to run on your storage cluster.
-
+The containers will use inotify to detect file and folder changes. These are written to the `.acls` share, and when files are replicated by Syncthing, this service comes by afterward and sets permissions.
