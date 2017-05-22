@@ -14,7 +14,7 @@ RUN curl -sL -o /bin/dumb-init "https://github.com/Yelp/dumb-init/releases/downl
 # get syncthing
 WORKDIR /srv/data
 
-ADD https://raw.githubusercontent.com/idistech/syncthing-acl/master/syncthing-acl.sh /usr/bin/
+ADD https://raw.githubusercontent.com/oskapt/syncthing-acl/master/syncthing-acl.sh /usr/bin/
 
 ADD ./start.sh /start.sh
 RUN chmod 770 /start.sh /usr/bin/syncthing-acl.sh
